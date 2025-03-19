@@ -1,10 +1,20 @@
-import { Button } from "./components/ui/button"
-
+import { Route, Routes } from "react-router-dom"
+import Homepage from "./pages/home/Homepage"
+import AuthCallbackPage from "./pages/home/auth-callback/AuthCallbackPage"
+import { axiosInstance } from "./lib/axios"
+import { AuthenticateWithRedirectCallback } from "@clerk/clerk-react"
 function App() {
   return (
     <>
-  <h1 className="text-red-500">hello</h1>
-  <Button variant={"secondary"}>Button</Button>
+    <Routes>
+      <Route path="/" element={<Homepage />}/>
+      <Route path='/auth-callback' element={<AuthCallbackPage />} />
+      <Route
+					path='/sso-callback'
+					element={<AuthenticateWithRedirectCallback signUpForceRedirectUrl={"/auth-callback"} />}
+				/>
+    </Routes>
+    
   </>
   )
 }
